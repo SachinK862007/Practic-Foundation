@@ -1,5 +1,24 @@
 /*This is a commant*/
 
+/*#sk2{
+    color: palevioletred;
+
+}
+
+
+.hello{
+    color: bisque;
+}*/
+
 body{
-    background-color: aquamarine;
+    /*background-color: lightblue;
+    opacity: 0.8; we ccan modefy the transparency of the text */
+    *{
+        color: purple;
+        opacity: 0.9;
+    }
+
+    background-image: url("https://i.pinimg.com/736x/83/2f/38/832f386054cc3f000bdeb71e9e561946.jpg");
+
+    background-position:0cqmax;
 }

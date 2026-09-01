@@ -25,7 +25,19 @@ body{
     border-width: 2px;
     border-color:crimson;
     border-radius: 10px;
+
+    padding: 20px 20px 0px 20px;
     /*margin:35px;*/
+}
+
+.sk4{
+
+    height: 20%;
+    max-width: 40%;
+    background-color: aliceblue;
+    color: rgb(205, 0, 0);
+    outline-style: dashed;
+    
 }
 
 *{

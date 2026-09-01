@@ -54,7 +54,18 @@ body{
 }
 
 #sk6{
-    color: crimson;
+    color: white;
+    margin-top: 20px;
+    border-style: double;
+    border-color: red;
+    border-width: 3px;
+    border-radius: 8px;
+    padding: 20px;
+    padding-left: 30px;
+
+
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 }
 
 

@@ -36,9 +36,27 @@ body{
     max-width: 40%;
     background-color: aliceblue;
     color: rgb(205, 0, 0);
+    border-radius: 5%;
+    border: 2px solid;
     outline-style: dashed;
-    
+    outline-offset: 5px;
+    outline-width: 4px;
+    padding: 20px;
 }
+
+#sk5{
+    color:rgb(252, 251, 250);
+    text-align: center;
+    text-decoration: underline red;
+    margin-top: 50px;
+    text-transform: uppercase;
+
+}
+
+#sk6{
+    color: crimson;
+}
+
 
 *{
     color: purple;

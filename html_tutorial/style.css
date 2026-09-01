@@ -18,6 +18,11 @@ body{
 
 }
 
+*{
+    color: purple;
+    opacity: 0.9;
+}
+
 #sk2{
     color:goldenrod;
 
@@ -68,8 +73,49 @@ body{
     
 }
 
+.dropdown-button{
+    background-color: rgb(245, 3, 3);
+    color: aliceblue;
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-*{
-    color: purple;
-    opacity: 0.9;
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-menu{
+    display: none;
+    position: absolute;
+    background-color: aquamarine;
+    border-radius: 4px;
+    min-width: 160px;
+}
+
+.dropdown-menu a{
+    color: black;
+    
+    text-decoration: none;
+    display: block;
+
+}
+
+.dropdown-menu a:hover{
+    background-color: white;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+
+.dropdown:hover .dropdown-button{
+    background-color:slategray;
+    color: red;
+
 }

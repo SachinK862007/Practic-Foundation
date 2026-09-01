@@ -119,3 +119,7 @@ body{
     color: red;
 
 }
+
+div[class="test"]{
+    color:white;
+}

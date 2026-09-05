@@ -9,3 +9,5 @@
 this is a 
 multi line comment
 */
+
+document.getElementById("sk1").textContent = 'Welcome SK'

@@ -10,4 +10,5 @@ this is a
 multi line comment
 */
 
-document.getElementById("sk1").textContent = 'Welcome SK'
+document.getElementById("sk1").textContent = 'Hello';
+document.getElementById("sk2").textContent = 'i like pizza';

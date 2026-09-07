@@ -17,4 +17,9 @@ let z = 25
 //console.log(z2);
 //console.log(z3);
 //console.log(z4);
-console.log(`you ${z}`)
+console.log(`you ${z}`);
+
+console.log(typeof y);   //this will print the datatype of the variable
+
+let firstname = "Bro";
+console.log(firstname);

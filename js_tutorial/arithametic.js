@@ -15,6 +15,8 @@
 
 // this is a user input practice
 
-let username;
+//let usernames;
+//usernames = window.prompt("what's your name?");
+//
+//console.log(usernames);
 
-username = window.prompt(`What is your name? `);

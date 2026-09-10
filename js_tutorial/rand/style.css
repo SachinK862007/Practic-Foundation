@@ -1,7 +1,7 @@
 body{
     font-family: Verdana;
     text-align: center;
-    /*background-color: black;*/
+    background-color: black;
 }
 #sk{
     color: rgba(252, 32, 146, 0.768);
@@ -18,7 +18,7 @@ body{
     color: rgb(237, 57, 57);
 }
 
-#sk3{
+#jsk3{
     font-size: 3em;
     padding: 5px 25px;
     border-radius: 8px;
@@ -28,7 +28,7 @@ body{
     transition: backgtound-color 0.25s;
 }
 
-#sk3:hover{
+#jsk3:hover{
     background-color: rgb(148, 182, 246);
 }
 

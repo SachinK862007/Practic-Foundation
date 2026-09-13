@@ -1,0 +1,34 @@
+body{
+    font-family: Verdana;
+    text-align: center;
+    background-color: black;
+}
+#sk{
+    color: rgba(252, 32, 146, 0.768);
+}
+
+#sk1{
+    font-size: 4em;
+    color: rgb(237, 57, 57);
+}
+
+
+#sk2{
+    font-size: 4em;
+    color: rgb(237, 57, 57);
+}
+
+#jsk3{
+    font-size: 3em;
+    padding: 5px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(97, 140, 221);
+    transition: backgtound-color 0.25s;
+}
+
+#jsk3:hover{
+    background-color: rgb(148, 182, 246);
+}
+

@@ -46,4 +46,5 @@ console.log(s6);
 
 
 s7 = num.padEnd(15, "0");
-console.log(s7);
+console.log(s7 ,"\n");
+

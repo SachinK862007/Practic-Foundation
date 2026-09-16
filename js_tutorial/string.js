@@ -53,3 +53,15 @@
 //String Slicing
 
 
+Name = 'Master Sk';
+
+console.log(Name.slice(0,4));
+console.log(Name.slice(3,6));
+console.log(Name.slice(-1));
+console.log(Name.slice(-3));
+console.log(Name.slice(0,Name.indexOf(" ")));
+console.log(Name.slice(Name.indexOf(" ") + 1));
+
+console.log("\n");
+
+// a small game 

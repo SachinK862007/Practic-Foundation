@@ -64,4 +64,9 @@ console.log(Name.slice(Name.indexOf(" ") + 1));
 
 console.log("\n");
 
-// a small game 
+// a small game using chain method in that 
+
+let Name1 = window.prompt("Enter Your Name");
+let Name2;
+Name2 = Name1.trim().charAt(0).toUpperCase() + Name1.trim().slice(1).toLowerCase();
+console.log(Name2);

@@ -1,12 +1,12 @@
-//let s = window.prompt("Enter a Number");
-//
-//console.log("AND operator");
-//if(s <= 10 && s >= 0){
-//    console.log(`The input is betwen 0 to 10 `);
-//}
-//else{
-//    console.log(`Its not valid`);
-//}
+let s = window.prompt("Enter a Number");
+
+console.log("AND operator");
+if(s <= 10 && s >= 0){
+    console.log(`The input is betwen 0 to 10 `);
+}
+else{
+    console.log(`Its not valid`);
+}
 
 console.log("\n");
 

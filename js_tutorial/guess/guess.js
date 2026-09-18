@@ -5,7 +5,7 @@ const answer = Math.floor(Math.random() * (max - min + 1)) + min;
 let guess;
 let attempts = 0;
 let running = true;
-//console.log(answer);
+
 
 while(running){
     guess = window.prompt("Guess the Number between 0 to 100");

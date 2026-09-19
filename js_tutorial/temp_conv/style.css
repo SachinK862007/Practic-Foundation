@@ -1,0 +1,52 @@
+body{
+    background-color: rgba(195, 188, 188, 0.582);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#sk{
+    color: rgb(98, 158, 248);
+}
+
+form{
+    background-color: rgba(255, 255, 255, 0.97);
+    text-align: center;
+    max-width: 350px;
+    margin: auto;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 6px 6px 15px hsla(0, 0%, 0%, 0.3);
+}
+
+#sk2, #sk3, #sk4, #sk5{
+    font-size: 20px;
+    font-size: 1.5em;
+}
+
+#sk1{
+    width: 50%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#sk6{
+    margin-top: 20px;
+    padding: 8px 16px 8px 16px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    color: rgb(253, 252, 252);
+    background-color: red;
+    cursor: pointer;
+}
+
+#sk6:hover{
+    background-color: rgb(255, 37, 37);
+    color: rgb(24, 174, 249);
+    box-shadow: 6px 6px 10px hsla(0, 0%, 0%, 0.3);
+}
+
+#sk7{
+    margin-top: 1em;
+    font-size: 1.75em;
+    font-weight: bold;
+}

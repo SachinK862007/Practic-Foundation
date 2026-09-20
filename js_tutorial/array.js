@@ -54,20 +54,34 @@
 //
 //result = sum(10, 20, 50, 101);
 //console.log(result, '\n');
+//
+//
+//function avg(...avg1){
+//    let av = 0, avg2;
+//
+//    for(let a of avg1){
+//        a = Number(a);
+//        av += a;
+//    }
+//
+//    avg2 = av / avg1.length;
+//
+//    return `The Average of ${avg1} is "${avg2}"`;
+//}
+//
+//result = avg(10, 20, 30, 40, 50, 60, 70, 80);
+//console.log('\n', result);
 
 
-function avg(...avg1){
-    let av = 0, avg2;
+function str(...s1){
+    let s = '';
+    for(const st of s1){
+        //s = String(st);
 
-    for(a of avg1){
-        a = Number(a);
-        av += a;
+        s += st + ' ';
     }
-
-    avg2 = av / avg1.length;
-
-    return `The Average of ${avg1} is "${avg2}"`;
+    return s.trim();
 }
 
-result = avg(10, 20, 30, 40, 50, 60, 70, 80);
-console.log('\n', result);
+result = str('Welcome', 'Back', 'Master', 'SK', 'Have', 'A', 'Great', 'Day');
+console.log(result);

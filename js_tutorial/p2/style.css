@@ -1,0 +1,35 @@
+#container{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+#roll{
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    background-color: hsl(210, 100%, 50%);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+
+}
+
+#roll:hover{
+    background-color: hsl(210, 100%, 60%);
+}
+
+#roll:active{
+    background-color: hsl(210, 100%, 70%);
+} 
+
+#inputnum{
+    font-size: 2rem;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+}

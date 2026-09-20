@@ -48,7 +48,8 @@ function sum(...s1){
         s = Number(s);
         ss += s;
     }
-    console.log(`\n The Total Bill is $ ${ss}`);
+    return `\n The Total Bill is $ ${ss}`;
 }
 
-sum(10, 20, 50, 101);
+result = sum(10, 20, 50, 101);
+console.log(result);

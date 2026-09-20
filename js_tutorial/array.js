@@ -56,3 +56,18 @@
 //console.log(result, '\n');
 
 
+function avg(...avg1){
+    let av = 0, avg2;
+
+    for(a of avg1){
+        a = Number(a);
+        av += a;
+    }
+
+    avg2 = av / avg1.length;
+
+    return `The Average of ${avg1} is "${avg2}"`;
+}
+
+result = avg(10, 20, 30, 40, 50, 60, 70, 80);
+console.log('\n', result);

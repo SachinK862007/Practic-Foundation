@@ -34,22 +34,25 @@
 //
 //function f(...fs){
 //    console.log(...fs); // see the output for this {console.log(fs);} and compait the output
+//    consle.log('\n');
 //}
 //
 //let f1 = 25, f2 = 30, f3 = 12, f4 = 11, f5 = 5;
 //
 //f(f1, f2, f3, f4, f5);
+//
+//
+//function sum(...s1){
+//    let ss = 0;
+//
+//    for(let s of s1){
+//        s = Number(s);
+//        ss += s;
+//    }
+//    return `\n The Total Bill is $ ${ss}`;
+//}
+//
+//result = sum(10, 20, 50, 101);
+//console.log(result, '\n');
 
 
-function sum(...s1){
-    let ss = 0;
-
-    for(let s of s1){
-        s = Number(s);
-        ss += s;
-    }
-    return `\n The Total Bill is $ ${ss}`;
-}
-
-result = sum(10, 20, 50, 101);
-console.log(result);

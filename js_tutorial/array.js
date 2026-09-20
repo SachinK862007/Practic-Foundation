@@ -84,4 +84,4 @@ function str(...s1){
 }
 
 result = str('Welcome', 'Back', 'Master', 'SK', 'Have', 'A', 'Great', 'Day');
-console.log(result);
+console.log('\n',result);

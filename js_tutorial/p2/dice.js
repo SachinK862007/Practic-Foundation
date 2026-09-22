@@ -1,3 +1,3 @@
 function rolldice(){
-    
+    let a;
 }

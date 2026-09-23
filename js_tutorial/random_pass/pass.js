@@ -25,7 +25,6 @@ function genrate(length, lowercase, uppercase, num, symbol){
 
 let inputvalue = document.getElementById("input");
 const lable = document.getElementById("L2");
-//const passwordlength = inputvalue.value;
 const includelowercase = true;
 const includeuppercase = true;
 const includenumber = true;

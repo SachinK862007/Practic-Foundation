@@ -14,7 +14,7 @@ function genrate(length, lowercase, uppercase, num, symbol){
     allow += symbol ? symb : "";
     
     
-    for(let i = 0; i < length; i++){
+    while(pass.length < length){
         const random = Math.floor(Math.random() * allow.length);
         pass += allow[random]
     }
@@ -25,20 +25,28 @@ function genrate(length, lowercase, uppercase, num, symbol){
 
 let inputvalue = document.getElementById("input");
 const lable = document.getElementById("L2");
-const passwordlength = inputvalue.value;
+//const passwordlength = inputvalue.value;
 const includelowercase = true;
 const includeuppercase = true;
 const includenumber = true;
 const includesymbols = true;
 const button = document.getElementById("but");
 
-let pass = Number(passwordlength);
-
- 
-const password = genrate(pass, includelowercase, includeuppercase, includenumber, includesymbols);
-
-
 button.onclick = function(){
+    const pass = Number(inputvalue.value);
+
+    if(pass < 8){
+        lable.textContent = 'Password length must be grater than 8';
+        return;
+    }
+
+    if(pass > 20){
+        lable.textContent = 'Password length must be grater than 8 and bellow 20';
+        return;
+    }
+
+    const password = genrate(pass, includelowercase, includeuppercase, includenumber, includesymbols);
+
     lable.textContent = password;
 }
 

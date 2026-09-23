@@ -12,9 +12,13 @@ function genrate(length, lowercase, uppercase, num, symbol){
     allow += uppercase ? upper : "";
     allow += num ? numb : "";
     allow += symbol ? symb : "";
-
-
-    return '';
+    
+    for(let i = 0; i < length; i++){
+        const random = Math.floor(Math.random() * allow.length);
+        pass += allow[random]
+    }
+    
+    return pass;
 }
 
 
@@ -25,7 +29,14 @@ const includelowercase = true;
 const includeuppercase = true;
 const includenumber = true;
 const includesymbols = true;
+//const button = document.getElementById("but");
 
-const password = genrate(passwordlength, includelowercase, includeuppercase, includenumber, includesymbols);
+//const password = genrate(passwordlength, includelowercase, includeuppercase, includenumber, includesymbols);
 
-lable.textContent = password;
+while(true){
+    const button = document.getElementById("but");
+    if(button.onclick){
+        const password = genrate(passwordlength, includelowercase, includeuppercase, includenumber, includesymbols);
+        lable.textContent = password;
+    }
+}

@@ -33,3 +33,13 @@
     font-weight: bold;
     border-radius: 5px;
 }
+
+#dice2{
+    margin-top: 15px;
+}
+
+#dice2 img{
+    width: 170px;
+    margin: 15px;
+    border-radius: 15px;
+}

@@ -68,17 +68,38 @@
 //function max(a, element){
 //    return Math.max(a, element);
 //}
+//
+//
+//
+////function expression in js
+//
+//et B = [20, 33, 2, 4, 5, 1];
+//
+//onst sq = B.map(function(element){return Math.pow(element, 2)});
+//onst cube = B.map(function(element){return Math.pow(element, 3)});
+//onst fil = B.filter(function(element){return element % 2 === 0});
+//
+//onsole.log(sq);
+//onsole.log(cube);
+//onsole.log(fil, '\n');
 
 
+//arrow expression
 
-//function expression in js
+const hello = () => console.log('Welcome Master SK');
 
-let B = [20, 33, 2, 4, 5, 1];
+hello();
 
-const sq = B.map(function(element){return Math.pow(element, 2)});
-const cube = B.map(function(element){return Math.pow(element, 3)});
-const fil = B.filter(function(element){return element % 2 === 0});
+let C = [1, 2, 3, 4, 5, 6];
+
+const sq = C.map((element) => Math.pow(element, 2));
+const cu = C.map((element) => Math.pow(element, 3));
+const even = C.filter((element) => element % 2 === 0);
+const odd = C.filter((element) => element % 2 !== 0);
+const add = C.reduce((a, element) => a + element);
 
 console.log(sq);
-console.log(cube);
-console.log(fil, '\n');
+console.log(cu);
+console.log(even);
+console.log(odd);
+console.log(add);

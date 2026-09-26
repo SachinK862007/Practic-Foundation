@@ -34,3 +34,20 @@
 // .filter() method in js
 
 let A = [20, 22, 1, 23, 55];
+
+let f = A.filter(even);
+let o = A.filter(odd);
+console.log(f);
+console.log(o);
+
+
+function odd(element){
+    if(element % 2 != 0){
+        return element;
+    }
+}
+function even(element){
+    if(element % 2 == 0){
+        return element;
+    }
+}

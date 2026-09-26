@@ -30,41 +30,55 @@
 //
 //
 //
+//
+//// .filter() method in js
+//
+//let A = [20, 22, 1, 23, 55];
+//
+//let f = A.filter(even);
+//let o = A.filter(odd);
+//console.log(f);
+//console.log(o, '\n');
+//
+//
+//function odd(element){
+//    if(element % 2 != 0){
+//        return element;
+//    }
+//}
+//function even(element){
+//    if(element % 2 == 0){
+//        return element;
+//    }
+//}
+//
+//
+////.reduce() method in js
+//
+//let r = A.reduce(sum);
+//let r1 = A.reduce(max);
+//
+//console.log(r, '\n');
+//console.log(r1, '\n');
+//
+//function sum(a, element){
+//    return a + element;
+//}
+//
+//function max(a, element){
+//    return Math.max(a, element);
+//}
 
-// .filter() method in js
-
-let A = [20, 22, 1, 23, 55];
-
-let f = A.filter(even);
-let o = A.filter(odd);
-console.log(f);
-console.log(o, '\n');
 
 
-function odd(element){
-    if(element % 2 != 0){
-        return element;
-    }
-}
-function even(element){
-    if(element % 2 == 0){
-        return element;
-    }
-}
+//function expression in js
 
+let B = [20, 33, 2, 4, 5, 1];
 
-//.reduce() method in js
+const sq = B.map(function(element){return Math.pow(element, 2)});
+const cube = B.map(function(element){return Math.pow(element, 3)});
+const fil = B.filter(function(element){return element % 2 === 0});
 
-let r = A.reduce(sum);
-let r1 = A.reduce(max);
-
-console.log(r, '\n');
-console.log(r1, '\n');
-
-function sum(a, element){
-    return a + element;
-}
-
-function max(a, element){
-    return Math.max(a, element);
-}
+console.log(sq);
+console.log(cube);
+console.log(fil, '\n');

@@ -38,7 +38,7 @@ let A = [20, 22, 1, 23, 55];
 let f = A.filter(even);
 let o = A.filter(odd);
 console.log(f);
-console.log(o);
+console.log(o, '\n');
 
 
 function odd(element){
@@ -50,4 +50,21 @@ function even(element){
     if(element % 2 == 0){
         return element;
     }
+}
+
+
+//.reduce() method in js
+
+let r = A.reduce(sum);
+let r1 = A.reduce(max);
+
+console.log(r, '\n');
+console.log(r1, '\n');
+
+function sum(a, element){
+    return a + element;
+}
+
+function max(a, element){
+    return Math.max(a, element);
 }

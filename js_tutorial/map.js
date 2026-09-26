@@ -33,3 +33,4 @@
 
 // .filter() method in js
 
+let A = [20, 22, 1, 23, 55];

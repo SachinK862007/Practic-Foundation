@@ -73,3 +73,6 @@
 
 //class in js
 
+class product{
+    
+}

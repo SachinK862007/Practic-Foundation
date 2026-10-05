@@ -74,5 +74,40 @@
 //class in js
 
 class product{
-    
+    constructor(name, price){
+        this.name = name;
+        this.price = price;
+    }
+
+    display(){
+        console.log(`Product : ${this.name}`);
+        console.log(`Price : $${this.price.toFixed(2)}`);
+    }
+
+    tax(selftax){
+        return this.price + (this.price * selftax);
+    }
 }
+
+const selftax = 0.05;
+
+p1 = new product("Bat Man", 25.55);
+p2 = new product("Iron Man", 55.55);
+p3 = new product("Thor", 70.00);
+p4 = new product("Loki", 100.00);
+
+p1.display();
+total = p1.tax(selftax);
+console.log(`After TAX : $${total.toFixed(2)}\n`);
+
+p2.display();
+total = p2.tax(selftax);
+console.log(`After TAX : $${total.toFixed(2)}\n`);
+
+p3.display();
+total = p3.tax(selftax);
+console.log(`After TAX : $${total.toFixed(2)}\n`);
+
+p4.display();
+total = p4.tax(selftax);
+console.log(`After TAX : $${total.toFixed(2)}\n`);

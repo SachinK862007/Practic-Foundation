@@ -101,3 +101,6 @@
 
 //super in js
 
+class sup{
+    
+}

@@ -163,52 +163,56 @@
 //console.log(p1.address.number);
 //console.log(p1.address.city);
 //console.log(p1.address.country, '\n');
+//
+//
+//// array of obj in js
+//
+//const fruits = [{name : "apple", color : "red", calaries : 95},
+//                {name : "Orange", color : "orange", calaries : 45}, 
+//                {name : "Banana", color : "yellow", calaries : 105}, 
+//                {name : "Pinapple", color : "yellow", calaries : 35}];
+//
+//
+//console.log(fruits, '\n');
+//
+//fruits.push({name : "coconut", color : "broun", calaries : 55});
+//console.log(fruits, '\n');
+//
+//fruits.pop(4);
+//console.log(fruits, '\n');
+//
+//fruits.forEach(f => console.log(f.name, f.color, f.calaries));
+//console.log('\n');
+//
+//let ff = fruits.map(f => f.name);
+//console.log(ff);
+//
+//let ff1 = fruits.map(f => f.color);
+//console.log(ff1);
+//
+//let ff2 = fruits.map(f => f.calaries);
+//console.log(ff2, '\n');
+//
+//
+//let y = fruits.filter( f => f.color === "yellow");
+//
+//let y2 = fruits.filter(f => f.calaries > 100);
+//
+//let y3 = fruits.filter(f => f.calaries < 100);
+//
+//console.log(y, '\n');
+//console.log(y2, '\n');
+//console.log(y3, '\n');
+//
+//
+//let r = fruits.reduce((max, fruit) => fruit.calaries > max.calaries ? fruit : max);
+//console.log(r);
+//console.log(r.calaries, '\n');
+//
+//let r1 = fruits.reduce((min, fruit) => fruit.calaries < min.calaries ? fruit : min);
+//console.log(r1);
+//console.log(r1.calaries, '\n');
 
 
-// array of obj in js
+//sort() methon in js
 
-const fruits = [{name : "apple", color : "red", calaries : 95},
-                {name : "Orange", color : "orange", calaries : 45}, 
-                {name : "Banana", color : "yellow", calaries : 105}, 
-                {name : "Pinapple", color : "yellow", calaries : 35}];
-
-
-console.log(fruits, '\n');
-
-fruits.push({name : "coconut", color : "broun", calaries : 55});
-console.log(fruits, '\n');
-
-fruits.pop(4);
-console.log(fruits, '\n');
-
-fruits.forEach(f => console.log(f.name, f.color, f.calaries));
-console.log('\n');
-
-let ff = fruits.map(f => f.name);
-console.log(ff);
-
-let ff1 = fruits.map(f => f.color);
-console.log(ff1);
-
-let ff2 = fruits.map(f => f.calaries);
-console.log(ff2, '\n');
-
-
-let y = fruits.filter( f => f.color === "yellow");
-
-let y2 = fruits.filter(f => f.calaries > 100);
-
-let y3 = fruits.filter(f => f.calaries < 100);
-
-console.log(y, '\n');
-console.log(y2, '\n');
-console.log(y3, '\n');
-
-
-let r = fruits.reduce((max, fruit) => fruit.calaries > max.calaries ? fruit : max);
-console.log(r);
-console.log(r.calaries, '\n');
-
-let r1 = fruits.reduce((min, fruit) => fruit.calaries < min.calaries ? fruit : min);
-console.log(r1);
-console.log(r1.calaries, '\n');

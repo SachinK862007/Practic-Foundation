@@ -228,22 +228,32 @@
 //console.log(f1);
 //console.log(f11);
 //console.log(f12);
+//
+//
+//// shuffle dec of cards in an array 
+//
+//const card = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K'];
+//
+//shuffle(card);
+//
+//console.log(card);
+//
+//function shuffle(array)
+//{
+//    for(let i = array.length - 1; i > 0; i--)
+//    {
+//        rand = Math.floor(Math.random() * (i + 1));
+//
+//        [array[i], array[rand]] = [array[rand], array[i]];
+//    }
+//}
 
 
-// shuffle dec of cards in an array 
+// date obj in js 
 
-const card = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K'];
 
-shuffle(card);
+let f = new Date();
+let f1 = new Date(2027, 0, 10, 20, 45, 0.9);
 
-console.log(card);
-
-function shuffle(array)
-{
-    for(let i = array.length - 1; i > 0; i--)
-    {
-        rand = Math.floor(Math.random() * (i + 1));
-
-        [array[i], array[rand]] = [array[rand], array[i]];
-    }
-}
+console.log(f);
+console.log('\n',f1,'\n');

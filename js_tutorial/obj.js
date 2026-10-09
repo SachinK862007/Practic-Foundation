@@ -247,13 +247,54 @@
 //        [array[i], array[rand]] = [array[rand], array[i]];
 //    }
 //}
+//
+//
+//// date obj in js 
+//
+//
+//let f = new Date();
+//let f1 = new Date(2027, 0, 10, 20, 45, 0.9);
+//
+//console.log(f);
+//console.log('\n',f1,'\n');
+//
+//
+//
+////closure in js
+//
+//
+//function outer(){
+//
+//    let msg = "Welcome Master SK";
+//    function inner(){
+//        console.log(msg);
+//    }
+//
+//    inner();
+//}
+//
+//outer();
+//
+//
+//function increment(){
+//    let c = 0;
+//    
+//    function inc(){
+//        c++;
+//        console.log(`count = ${c}`);
+//    }
+//    
+//    return {inc}
+//}
+//
+//const cc = increment();
+//
+//cc.inc();
+//cc.inc();
+//cc.inc();
+//cc.inc();
 
 
-// date obj in js 
 
+//set timmer in js
 
-let f = new Date();
-let f1 = new Date(2027, 0, 10, 20, 45, 0.9);
-
-console.log(f);
-console.log('\n',f1,'\n');

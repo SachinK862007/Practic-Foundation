@@ -212,7 +212,38 @@
 //let r1 = fruits.reduce((min, fruit) => fruit.calaries < min.calaries ? fruit : min);
 //console.log(r1);
 //console.log(r1.calaries, '\n');
+//
+//
+////sort() methon in js
+//
+//let car = ["BMW", "Adui", "Ford", "Mustnag", "Lotus", "Pagani"];
+//let car1 = [1, 9, 6, 5, 2, 10, 7, 3, 8, 4];
+//
+//f2 = car.sort();
+//f1 = car1.sort();
+//f11 = car1.sort((a, b) => a - b);
+//f12 = car1.sort((a, b) => b - a);
+//
+//console.log(f2);
+//console.log(f1);
+//console.log(f11);
+//console.log(f12);
 
 
-//sort() methon in js
+// shuffle dec of cards in an array 
 
+const card = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K'];
+
+shuffle(card);
+
+console.log(card);
+
+function shuffle(array)
+{
+    for(let i = array.length - 1; i > 0; i--)
+    {
+        rand = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[rand]] = [array[rand], array[i]];
+    }
+}

@@ -5,3 +5,5 @@ arr.forEach(display);
 function display(element){
     console.log(element);
 }
+
+console.log(document);

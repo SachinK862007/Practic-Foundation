@@ -1,8 +1,19 @@
-body{
+/*body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 3em;
 }
 
 #sk{
     font-size: 30px;
+}*/
+
+#box{
+    background-color: lightgreen;
+    width: 300px;
+    height: 300px;
+    font-size: 4.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }

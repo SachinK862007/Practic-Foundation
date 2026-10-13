@@ -7,7 +7,7 @@
     font-size: 30px;
 }*/
 
-#box{
+/*#box{
     background-color: lightgreen;
     width: 300px;
     height: 300px;
@@ -16,4 +16,18 @@
     display: flex;
     align-items: center;
     text-align: center;
+}*/
+
+body{
+    margin: 0;
+}
+#x1{
+    background-color: lightblue;
+    width: 200px;
+    height: 200px;
+    font-size: 7.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }

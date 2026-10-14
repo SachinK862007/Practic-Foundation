@@ -54,3 +54,18 @@
 //
 // hide and show in js 
 
+const mybut = document.getElementById("mybut");
+const myimg = document.getElementById("myimg");
+
+mybut.addEventListener("click", event =>{
+
+    if(myimg.style.display === "none"){
+        myimg.style.display = "block";
+        mybut.textContent = "Hide";
+    }
+    else{
+        myimg.style.display = "none";
+        mybut.textContent = "Show";
+    }
+    
+});

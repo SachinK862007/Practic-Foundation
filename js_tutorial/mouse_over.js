@@ -51,7 +51,3 @@ document.addEventListener("keydown", event => {
     
 });
 
-document.addEventListener("keyup", event => {
-
-
-});

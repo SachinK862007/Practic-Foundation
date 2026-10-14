@@ -21,33 +21,36 @@
 //box.addEventListener("mouseout", changeColor2);
 //
 // event listner keyup, keydown in js
-
-const x1 = document.getElementById("x1");
-const move = 10;
-let x = 0;
-let y = 0;
-
-document.addEventListener("keydown", event => {
-
-    if(event.key.startsWith("Arrow")){
-        switch(event.key){
-            case "ArrowUp":
-                y -= move;
-                break;
-            case "ArrowDown":
-                y += move;
-                break;
-            case "ArrowLeft":
-                x -= move;
-                break;
-            case "ArrowRight":
-                x += move;
-                break;
-        }
-
-        x1.style.top = `${y}px`
-        x1.style.left = `${x}px`
-    }
-    
-});
+//
+//const x1 = document.getElementById("x1");
+//const move = 10;
+//let x = 0;
+//let y = 0;
+//
+//document.addEventListener("keydown", event => {
+//
+//    if(event.key.startsWith("Arrow")){
+//        switch(event.key){
+//            case "ArrowUp":
+//                y -= move;
+//                break;
+//            case "ArrowDown":
+//                y += move;
+//                break;
+//            case "ArrowLeft":
+//                x -= move;
+//                break;
+//            case "ArrowRight":
+//                x += move;
+//                break;
+//        }
+//
+//        x1.style.top = `${y}px`
+//        x1.style.left = `${x}px`
+//    }
+//    
+//});
+//
+//
+// hide and show in js 
 

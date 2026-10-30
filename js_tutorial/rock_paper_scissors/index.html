@@ -8,7 +8,16 @@
 </head>
 <body>
     
-    <h1>Rock - Paper - Scissor GO!</h1>
+    <h1 id="skhead">Rock - Paper - Scissor GO!</h1>
+
+    <div class="choice">
+        <button onclick="playgame('rock')">✊</button>
+        <button onclick="playgame('paper')">🤚</button>
+        <button onclick="playgame('scissor')">✌️</button>
+    </div>
+    <div id="playerdisplay">PLAYER : </div>
+    <div id="computerdisplay">COMPYTER : </div>
+    <div id="resultdisplay">THE GAME IS TIE !</div>
 
     <script src="rps.js"></script>
 </body>

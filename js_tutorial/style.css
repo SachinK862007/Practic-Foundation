@@ -32,7 +32,17 @@
     position: relative;
 }*/
 
-#mybut{
+/*#mybut{
     font-size: 2rem;
     
+}*/
+
+body{
+    font-size: 2rem;
+
+}
+
+#pokemonsprite{
+    width: 300px;
+    height: 300px;
 }

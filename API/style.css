@@ -1,0 +1,384 @@
+:root {
+  --ink: #142033;
+  --ink-soft: #4d5b6e;
+  --sidebar: #102033;
+  --sidebar-text: #e7eef6;
+  --sidebar-muted: #9aabbd;
+  --accent: #e09a3e;
+  --accent-ink: #3d2a08;
+  --canvas: #eef2f5;
+  --card: #ffffff;
+  --line: #d5dee7;
+  --focus: #102033;
+  --source: #f7f1e6;
+  --destination: #e7f0f4;
+  --shadow: 0 10px 24px rgba(16, 32, 51, 0.08);
+  --space: 1rem;
+  --radius: 16px;
+  --sidebar-width: 240px;
+  --motion: 0.5s ease;
+  font-family: "Segoe UI", "Avenir Next", sans-serif;
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.app {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.25rem 0.9rem;
+  background: var(--sidebar);
+  color: var(--sidebar-text);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 0.4rem;
+}
+
+.brand-mark {
+  margin: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.brand-title, .brand-subtitle { margin: 0; }
+
+.brand-title { font-weight: 700; letter-spacing: 0.01em; }
+
+.brand-subtitle { color: var(--sidebar-muted); font-size: 0.85rem; }
+
+.feature-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.75rem;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--sidebar-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--motion), transform var(--motion);
+}
+
+.nav-button:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-1px); }
+
+.nav-button.is-active { background: var(--accent); color: var(--accent-ink); }
+
+.nav-icon { width: 1.25rem; height: 1.25rem; fill: currentColor; flex-shrink: 0; }
+
+.workspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  overflow: auto;
+}
+
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+  padding: 1.25rem;
+  min-width: 0;
+}
+
+.view[hidden] { display: none; }
+
+.view-header h2 { margin: 0 0 0.25rem; font-size: 1.6rem; }
+
+.view-header p { margin: 0; color: var(--ink-soft); }
+
+.view-header-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.toolbar, .button-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.field-grow { flex: 1; }
+
+.field label, .result-label { font-size: 0.85rem; font-weight: 650; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+textarea { resize: vertical; }
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  transition: transform var(--motion), box-shadow var(--motion), background-color var(--motion);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+
+.btn-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.btn:focus-visible,
+.nav-button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.weather-card h3, .quote-card blockquote, .joke-text { margin: 0; }
+
+.weather-temperature { margin: 0; font-size: 3rem; font-weight: 700; line-height: 1; }
+
+.weather-temperature.is-placeholder {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0 0;
+}
+
+
+.stat-grid div {
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: var(--canvas);
+}
+
+.stat-grid dt { color: var(--ink-soft); font-size: 0.8rem; }
+
+.stat-grid dd { margin: 0.2rem 0 0; font-weight: 700; }
+
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.quote-card, .joke-card {
+  width: min(40rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.quote-card blockquote, .joke-text { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.35; }
+
+.attribution, .joke-delivery { margin: 0; color: var(--ink-soft); }
+
+.notes-board, .results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 8rem;
+}
+
+.empty-state, .status { margin: 0; color: var(--ink-soft); }
+
+.empty-state {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.note-list { list-style: none; margin: 0; padding: 0; }
+
+.results { flex: 1; }
+
+.pokedex {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(14rem, 18rem) 1fr;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.pokedex-screen, .pokedex-details {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.pokedex-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #17324d;
+  color: #f4f7fb;
+}
+
+.artwork-placeholder {
+  width: 8rem;
+  height: 8rem;
+  margin: 0 0 0.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+}
+
+.pokedex-screen h3, .pokedex-screen p { margin: 0; }
+
+.pokedex-details { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.pokedex-details h3 { margin: 0 0 0.3rem; font-size: 0.95rem; }
+
+.pokedex-details ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); }
+
+.currency-board {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.currency-panel { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.currency-panel-source { background: var(--source); }
+
+.currency-panel-destination { background: var(--destination); }
+
+.currency-board [data-swap] { align-self: center; }
+
+.currency-board [type="submit"] { grid-column: 1 / -1; justify-self: start; }
+
+.result-value { margin: 0; font-size: 2rem; font-weight: 700; }
+
+select:disabled { color: var(--ink-soft); cursor: not-allowed; }
+
+.is-complete { text-decoration: line-through; }
+
+@media (max-width: 800px) {
+  .app { flex-direction: column; height: auto; min-height: 100dvh; overflow: visible; }
+
+  .sidebar { width: 100%; gap: 0.8rem; padding-bottom: 0.8rem; }
+
+  .feature-nav-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.4rem;
+  }
+
+  .nav-button { width: auto; white-space: nowrap; }
+
+  .workspace { overflow: visible; }
+
+  .pokedex, .currency-board { grid-template-columns: 1fr; }
+
+  .currency-board [data-swap],
+  .currency-board [type="submit"] { justify-self: stretch; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .nav-button { transition: none; }
+  .btn:hover, .nav-button:hover { transform: none; }
+}

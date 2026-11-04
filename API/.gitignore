@@ -1,0 +1,35 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Test and coverage output
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor-specific local files
+.idea/
+.vscode/
+
+# Temporary and local files
+*.tmp
+*.swp
+*.local

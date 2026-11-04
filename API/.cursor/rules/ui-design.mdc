@@ -1,0 +1,124 @@
+---
+description: "Visual design and user interface standards for API Hub."
+globs: "index.html, style.css"
+alwaysApply: false
+---
+
+
+
+# UI Design Rules
+
+## Overall Design
+
+Create a modern, polished, responsive application.
+
+The interface should feel like one cohesive multi-tool application rather than seven unrelated pages.
+
+Use available screen space efficiently.
+
+Avoid unnecessary blank areas.
+
+Maintain visual hierarchy and readable spacing.
+
+## Main Layout
+
+The desktop layout should contain:
+
+- A persistent left sidebar.
+- A main content area.
+- A clear active navigation state.
+
+The application should fit the available viewport without unnecessary page scrolling.
+
+On smaller screens, adapt the navigation and content layout appropriately.
+
+## Navigation Order
+
+Keep the sidebar options in this exact order:
+
+1. Weather
+2. Quotes
+3. Jokes
+4. To-dos
+5. Movies
+6. Pokédex
+7. Currency
+
+Use clear labels and consistent icons.
+
+## Interaction
+
+All interactive buttons must:
+
+- Use cursor: pointer.
+- Have visible hover feedback.
+- Have visible focus states.
+- Have clear disabled states when applicable.
+
+Use an approximately 0.5-second CSS transition for button interactions.
+
+Use subtle hover elevation or a small pop effect.
+
+Avoid excessive movement.
+
+## Feature Visual Design
+
+### Weather
+
+Use a prominent weather display.
+
+Weather condition animations should be subtle and appropriate to the displayed condition.
+
+### Quotes
+
+Use a large, centred quote card and a clear generate button.
+
+### Jokes
+
+Use a large joke card with readable typography and a clear generate button.
+
+### To-dos
+
+Use a note-taking interface with an add button.
+
+Support draft, edit, save, completion, and deletion states.
+
+Completed items should have a visible strikethrough.
+
+### Movies
+
+Use movie posters, recommendation cards, and clear movie detail layouts.
+
+Do not invent unavailable movie information.
+
+### Pokédex
+
+Use an original Pokédex-inspired design.
+
+Make the Pokémon image, name, types, abilities, and statistics visually prominent.
+
+Use subtle result-reveal animation.
+
+### Currency
+
+Use two clearly differentiated currency panels.
+
+Include amount inputs, currency selectors, a swap control, and a convert action.
+
+## CSS Standards
+
+- Use CSS custom properties for shared design tokens.
+- Avoid duplicated styling.
+- Keep selectors readable.
+- Use consistent spacing.
+- Include responsive breakpoints.
+- Include reduced-motion support where appropriate.
+- Keep transitions purposeful.
+
+## Accessibility
+
+- Use semantic HTML.
+- Ensure buttons have accessible labels.
+- Ensure form inputs have labels.
+- Preserve keyboard navigation.
+- Maintain sufficient colour contrast.

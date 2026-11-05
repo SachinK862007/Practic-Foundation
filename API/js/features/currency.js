@@ -1,88 +1,10 @@
-/**
- * Currency feature.
- * Planned API: Frankfurter. Not connected.
- *
- * Future request flow:
- * 1. TODO: GET the verified currency list and fill both select elements.
- * 2. Read the amount, source code, and destination code.
- * 3. TODO: GET the verified rate for that pair.
- * 4. TODO: map the verified rate and date into [data-result] and [data-rate-date].
- *    The converted amount is calculated from the verified rate and the user amount.
- *
- * Unsupported codes and failed requests stay in [data-status].
- * Do not invent currency codes or rates before the list response is inspected.
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+import { requestJson, setStatus } from "../utils.js";
 
 export function initCurrency(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="currency-title">Currency</h2>
-      <p>Convert an amount between two currencies.</p>
-    </header>
-
-    <form class="currency-board" data-convert-form>
-      <section class="card currency-panel currency-panel-source">
-        <div class="field">
-          <label for="currency-amount">Amount</label>
-          <input id="currency-amount" name="amount" type="number" min="0" step="any" data-amount inputmode="decimal">
-        </div>
-        <div class="field">
-          <label for="currency-from">From</label>
-          <select id="currency-from" name="from" data-from disabled>
-            <option value="">Currencies will load from the API</option>
-          </select>
-        </div>
-      </section>
-
-      <button class="btn btn-secondary" type="button" data-swap>Swap</button>
-
-      <section class="card currency-panel currency-panel-destination">
-        <div class="field">
-          <label for="currency-to">To</label>
-          <select id="currency-to" name="to" data-to disabled>
-            <option value="">Currencies will load from the API</option>
-          </select>
-        </div>
-        <p class="result-label">Converted amount</p>
-        <p class="result-value" data-result>—</p>
-        <p data-rate-date>Rate date will appear here.</p>
-      </section>
-
-      <button class="btn" type="submit">Convert</button>
-    </form>
-
-    <p class="status" data-status role="status">Currency codes are not loaded yet.</p>
-  `;
-
-  const form = root.querySelector("[data-convert-form]");
-  const amountInput = root.querySelector("[data-amount]");
-
-  root.querySelector("[data-swap]").addEventListener("click", () => {
-    // TODO: exchange the selected values of [data-from] and [data-to]
-    // after the currency list has been loaded.
-    setStatus(root, "Swap will reverse the two currencies after the currency list is loaded.");
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const amount = Number(amountInput.value);
-
-    if (amountInput.value.trim() === "" || !Number.isFinite(amount)) {
-      setStatus(root, "Enter a valid amount.");
-      amountInput.focus();
-      return;
-    }
-
-    if (amount < 0) {
-      setStatus(root, "Enter an amount that is zero or greater.");
-      return;
-    }
-
-    // TODO: request the exchange rate and write the converted amount.
-    setStatus(root, "Conversion will run after Frankfurter is verified in Postman.");
-  });
+  root.innerHTML = '<header class="view-header"><h2 id="currency-title">Currency</h2><p>Convert with current rates from Frankfurter.</p></header><form class="currency-board" data-form><section class="card currency-panel"><div class="field"><label for="currency-amount">Amount</label><input id="currency-amount" type="number" min="0" step="any" value="1" data-amount required></div><div class="field"><label for="currency-from">From</label><select id="currency-from" data-from disabled></select></div></section><button class="btn btn-secondary" type="button" data-swap>Swap</button><section class="card currency-panel"><div class="field"><label for="currency-to">To</label><select id="currency-to" data-to disabled></select></div><p class="result-label">Converted amount</p><p class="result-value" data-result>—</p><p data-rate>Rate will appear here.</p></section><button class="btn" type="submit" data-convert disabled>Convert</button></form><p class="status" data-status role="status">Loading currencies…</p>';
+  const from = root.querySelector("[data-from]"), to = root.querySelector("[data-to]"), submit = root.querySelector("[data-convert]"), amount = root.querySelector("[data-amount]");
+  loadCurrencies();
+  async function loadCurrencies() { try { const data = await requestJson("https://api.frankfurter.dev/v1/currencies"); const options = Object.entries(data).map(([code, name]) => { const option = document.createElement("option"); option.value = code; option.textContent = code + " — " + name; return option; }); from.replaceChildren(...options.map(o => o.cloneNode(true))); to.replaceChildren(...options); from.value = "USD"; to.value = "EUR"; from.disabled = to.disabled = submit.disabled = false; setStatus(root, "Ready."); } catch (error) { setStatus(root, error.message, "error"); } }
+  root.querySelector("[data-swap]").addEventListener("click", () => { [from.value, to.value] = [to.value, from.value]; });
+  root.querySelector("[data-form]").addEventListener("submit", async event => { event.preventDefault(); const value = Number(amount.value); if (!Number.isFinite(value) || value < 0) return setStatus(root, "Enter a valid non-negative amount.", "error"); submit.disabled = true; setStatus(root, "Converting…"); try { const data = await requestJson("https://api.frankfurter.dev/v1/latest?base=" + encodeURIComponent(from.value) + "&symbols=" + encodeURIComponent(to.value)); const rate = data.rates?.[to.value]; if (typeof rate !== "number") throw new Error("No rate was returned for that pair."); root.querySelector("[data-result]").textContent = (value * rate).toFixed(2) + " " + to.value; root.querySelector("[data-rate]").textContent = "1 " + from.value + " = " + rate + " " + to.value + " · Rate date: " + (data.date || "current"); setStatus(root, "Conversion complete.", "success"); } catch (error) { setStatus(root, error.message, "error"); } finally { submit.disabled = false; } });
 }

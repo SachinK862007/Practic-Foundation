@@ -1,44 +1,7 @@
-/**
- * Jokes feature.
- * Planned API: JokeAPI. Not connected.
- *
- * Future request flow:
- * 1. TODO: GET a random joke with the API's safe-mode option.
- * 2. TODO: read the verified type field.
- * 3. Single-part jokes: show [data-joke] and hide the two-part block.
- * 4. Two-part jokes: show [data-setup] and [data-delivery] separately.
- * 5. TODO: handle the documented error shape without rendering missing text.
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+import { requestJson, setBusy, setStatus } from "../utils.js";
 
 export function initJokes(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="jokes-title">Jokes</h2>
-      <p>Request a random safe joke.</p>
-    </header>
-
-    <div class="stage">
-      <article class="card joke-card">
-        <p class="eyebrow">Joke</p>
-        <p class="joke-text" data-single hidden></p>
-        <div data-twopart hidden>
-          <p class="joke-text" data-setup></p>
-          <p class="joke-delivery" data-delivery></p>
-        </div>
-        <p data-placeholder>A joke will appear here.</p>
-        <button class="btn" type="button" data-new-joke>New joke</button>
-      </article>
-    </div>
-
-    <p class="status" data-status role="status">No joke requested yet.</p>
-  `;
-
-  root.querySelector("[data-new-joke]").addEventListener("click", () => {
-    // TODO: request a safe joke and choose the single-part or two-part layout.
-    setStatus(root, "A new joke will load after JokeAPI is verified in Postman.");
-  });
+  root.innerHTML = `<header class="view-header"><h2 id="jokes-title">Jokes</h2><p>Safe-mode jokes from JokeAPI.</p></header><div class="stage"><article class="card joke-card"><p class="eyebrow">Joke</p><p class="joke-text" data-joke>Click below for a joke.</p><div data-twopart hidden><p class="joke-text" data-setup></p><p class="joke-delivery" data-delivery></p></div><button class="btn" type="button" data-new-joke>New joke</button></article></div><p class="status" data-status role="status">Ready.</p>`;
+  const button = root.querySelector("[data-new-joke]");
+  button.addEventListener("click", async () => { setBusy(button, true, "Loading…"); setStatus(root, "Requesting a safe joke…"); try { const data = await requestJson("https://v2.jokeapi.dev/joke/Any?safe-mode"); if (data.error) throw new Error(data.message || "JokeAPI returned an error."); const single = root.querySelector("[data-joke]"), two = root.querySelector("[data-twopart]"); if (data.type === "twopart") { single.hidden = true; two.hidden = false; root.querySelector("[data-setup]").textContent = data.setup || ""; root.querySelector("[data-delivery]").textContent = data.delivery || ""; } else { single.hidden = false; two.hidden = true; single.textContent = data.joke || "No joke returned."; } setStatus(root, "Joke loaded.", "success"); } catch (error) { setStatus(root, error.message, "error"); } finally { setBusy(button, false); } });
 }

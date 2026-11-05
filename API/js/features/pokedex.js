@@ -1,92 +1,13 @@
-/**
- * Pokédex feature.
- * Planned API: PokéAPI. Not connected.
- *
- * Future request flow:
- * 1. Read the name or ID from [data-query].
- * 2. TODO: GET the verified Pokémon endpoint.
- * 3. TODO: map confirmed fields into the nodes below.
- * 4. An unknown name or ID should show the error status, not an empty card.
- *
- * UI targets:
- * - [data-artwork]  official artwork or sprite, chosen after the response is inspected
- * - [data-name]     name
- * - [data-id]       id
- * - [data-types]    types
- * - [data-abilities] abilities
- * - [data-stats]    base statistics
- * - [data-height]   height
- * - [data-weight]   weight
- */
+import { requestJson, setBusy, setStatus, textList } from "../utils.js";
 
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+export async function fetchPokemon(query) { return requestJson("https://pokeapi.co/api/v2/pokemon/" + encodeURIComponent(query.toLowerCase())); }
+export function pokemonArtwork(data) { return data.sprites?.other?.["official-artwork"]?.front_default || data.sprites?.front_default || ""; }
+export function statMap(data) { return Object.fromEntries((data.stats || []).map(item => [item.stat.name, item.base_stat])); }
 
 export function initPokedex(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="pokedex-title">Pokédex</h2>
-      <p>Look up a Pokémon by name or ID.</p>
-    </header>
-
-    <form class="toolbar" data-search-form>
-      <div class="field field-grow">
-        <label for="pokemon-query">Name or ID</label>
-        <input id="pokemon-query" name="query" type="search" data-query autocomplete="off" placeholder="For example, a name or a number">
-      </div>
-      <button class="btn" type="submit">Search</button>
-    </form>
-
-    <article class="pokedex">
-      <div class="pokedex-screen">
-        <img data-artwork alt="" hidden>
-        <p class="artwork-placeholder" data-artwork-placeholder>Artwork</p>
-        <h3 data-name>No Pokémon selected</h3>
-        <p data-id>ID —</p>
-      </div>
-      <div class="pokedex-details">
-        <section>
-          <h3>Types</h3>
-          <ul data-types><li>Types will appear here.</li></ul>
-        </section>
-        <section>
-          <h3>Abilities</h3>
-          <ul data-abilities><li>Abilities will appear here.</li></ul>
-        </section>
-        <section>
-          <h3>Base statistics</h3>
-          <ul data-stats><li>Statistics will appear here.</li></ul>
-        </section>
-        <dl class="stat-grid">
-          <div>
-            <dt>Height</dt>
-            <dd data-height>—</dd>
-          </div>
-          <div>
-            <dt>Weight</dt>
-            <dd data-weight>—</dd>
-          </div>
-        </dl>
-      </div>
-    </article>
-
-    <p class="status" data-status role="status">Waiting for a Pokémon search.</p>
-  `;
-
-  const form = root.querySelector("[data-search-form]");
-  const queryInput = root.querySelector("[data-query]");
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const query = queryInput.value.trim();
-
-    if (!query) {
-      setStatus(root, "Enter a Pokémon name or ID.");
-      return;
-    }
-
-    // TODO: request the Pokémon and map the confirmed response into this card.
-    setStatus(root, `Lookup for “${query}” will run after PokéAPI is verified in Postman.`);
-  });
+  root.innerHTML = '<header class="view-header"><h2 id="pokedex-title">Pokédex</h2><p>Look up a Pokémon by name or ID.</p></header><form class="toolbar" data-search-form><div class="field field-grow"><label for="pokemon-query">Name or ID</label><input id="pokemon-query" type="search" data-query placeholder="For example, pikachu or 25" required></div><button class="btn" type="submit">Search</button></form><article class="pokedex"><div class="pokedex-screen"><img data-artwork alt="" hidden><p data-artwork-placeholder>Artwork will appear here.</p><h3 data-name>No Pokémon selected</h3><p data-id>ID —</p></div><div class="pokedex-details"><section><h3>Types</h3><ul data-types></ul></section><section><h3>Abilities</h3><ul data-abilities></ul></section><section><h3>Base statistics</h3><ul data-stats></ul></section><dl class="stat-grid"><div><dt>Height</dt><dd data-height>—</dd></div><div><dt>Weight</dt><dd data-weight>—</dd></div></dl></div></article><p class="status" data-status role="status">Ready.</p>';
+  const form = root.querySelector("[data-search-form]"), input = root.querySelector("[data-query]"), button = form.querySelector("button");
+  form.addEventListener("submit", async event => { event.preventDefault(); const query = input.value.trim(); if (!query) return setStatus(root, "Enter a name or ID.", "error"); setBusy(button, true, "Loading…"); try { await renderPokemon(root, await fetchPokemon(query)); setStatus(root, "Pokémon loaded.", "success"); } catch (error) { setStatus(root, error.status === 404 ? "Pokémon not found." : error.message, "error"); } finally { setBusy(button, false); } });
 }
+export async function renderPokemon(root, data) { const image = root.querySelector("[data-artwork]"), artwork = pokemonArtwork(data); image.hidden = !artwork; image.src = artwork; image.alt = artwork ? data.name + " official artwork" : ""; root.querySelector("[data-artwork-placeholder]").hidden = Boolean(artwork); root.querySelector("[data-name]").textContent = data.name; root.querySelector("[data-id]").textContent = "ID #" + data.id; fillList(root.querySelector("[data-types]"), textList(data.types?.map(item => item.type.name))); fillList(root.querySelector("[data-abilities]"), textList(data.abilities?.map(item => item.ability.name))); fillList(root.querySelector("[data-stats]"), textList(data.stats?.map(item => item.stat.name + ": " + item.base_stat))); root.querySelector("[data-height]").textContent = data.height / 10 + " m"; root.querySelector("[data-weight]").textContent = data.weight / 10 + " kg"; }
+function fillList(node, values) { node.replaceChildren(...values.map(value => { const item = document.createElement("li"); item.textContent = value; return item; })); }

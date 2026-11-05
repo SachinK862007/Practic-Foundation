@@ -1,88 +1,16 @@
-/**
- * To-dos feature.
- * Planned API: JSONPlaceholder. Not connected.
- *
- * JSONPlaceholder simulates POST, PUT, and DELETE. Those responses
- * do not permanently change the server's example data.
- *
- * Future request flow:
- * - TODO: GET the todo collection into [data-list].
- * - TODO: POST a JSON body from the draft title and note.
- *         Header to confirm in Postman: Content-Type: application/json.
- * - TODO: PUT the edited item.
- * - TODO: DELETE the selected item.
- * - TODO: update completion with the method verified in Postman.
- *
- * Each saved item will later render edit, complete, and delete controls.
- * Completed titles will use the .is-complete style.
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+import { requestJson, setBusy, setStatus } from "../utils.js";
+const API = "https://jsonplaceholder.typicode.com/todos";
 
 export function initTodos(root) {
-  root.innerHTML = `
-    <header class="view-header view-header-split">
-      <div>
-        <h2 id="todos-title">To-dos</h2>
-        <p>Write a note. It will be sent after JSONPlaceholder is verified.</p>
-      </div>
-      <button class="btn btn-icon" type="button" data-add aria-label="Add a todo">+</button>
-    </header>
-
-    <form class="card composer" data-composer hidden>
-      <div class="field">
-        <label for="todo-title">Title</label>
-        <input id="todo-title" name="title" type="text" data-title autocomplete="off">
-      </div>
-      <div class="field">
-        <label for="todo-note">Note</label>
-        <textarea id="todo-note" name="note" rows="3" data-note></textarea>
-      </div>
-      <div class="button-row">
-        <button class="btn" type="submit">Save</button>
-        <button class="btn btn-secondary" type="button" data-cancel>Cancel</button>
-      </div>
-    </form>
-
-    <div class="notes-board">
-      <p class="empty-state" data-empty>No notes yet. Use the plus button to start one.</p>
-      <ul class="note-list" data-list></ul>
-    </div>
-
-    <p class="status" data-status role="status">Notes are not connected to JSONPlaceholder yet.</p>
-  `;
-
-  const addButton = root.querySelector("[data-add]");
-  const composer = root.querySelector("[data-composer]");
-  const titleInput = root.querySelector("[data-title]");
-  const noteInput = root.querySelector("[data-note]");
-
-  addButton.addEventListener("click", () => {
-    composer.hidden = false;
-    titleInput.focus();
-  });
-
-  root.querySelector("[data-cancel]").addEventListener("click", () => {
-    composer.reset();
-    composer.hidden = true;
-    setStatus(root, "Draft discarded on this screen.");
-  });
-
-  composer.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const title = titleInput.value.trim();
-
-    if (!title) {
-      setStatus(root, "Enter a title before saving.");
-      titleInput.focus();
-      return;
-    }
-
-    // TODO: POST the draft. Do not treat the simulated response as stored data.
-    // The note text will be mapped onto a card in [data-list] only after that
-    // request is verified. Edit, complete, and delete handlers belong on that card.
-    setStatus(root, "Saving will send a POST after JSONPlaceholder is verified in Postman.");
-  });
+  root.innerHTML = '<header class="view-header view-header-split"><div><h2 id="todos-title">To-dos</h2><p>Session-aware CRUD practice with JSONPlaceholder.</p></div><button class="btn btn-icon" type="button" data-add aria-label="Add a todo">+</button></header><form class="card composer" data-composer hidden><div class="field"><label for="todo-title">Title</label><input id="todo-title" data-title required></div><div class="field"><label for="todo-note">Note</label><textarea id="todo-note" data-note rows="3"></textarea></div><div class="button-row"><button class="btn" type="submit">Save</button><button class="btn btn-secondary" type="button" data-cancel>Cancel</button></div></form><div class="notes-board"><p class="empty-state" data-empty>Loading notes…</p><ul class="note-list" data-list></ul></div><p class="status" data-status role="status">Loading…</p>';
+  const list = root.querySelector("[data-list]"), empty = root.querySelector("[data-empty]"), composer = root.querySelector("[data-composer]"), title = root.querySelector("[data-title]"), note = root.querySelector("[data-note]"), add = root.querySelector("[data-add]"); let todos = [], editing = null;
+  add.addEventListener("click", () => { composer.hidden = false; title.focus(); });
+  root.querySelector("[data-cancel]").addEventListener("click", () => { composer.reset(); composer.hidden = true; });
+  composer.addEventListener("submit", async event => { event.preventDefault(); if (!title.value.trim()) return setStatus(root, "Enter a title.", "error"); if (editing) { await update(editing, { title: title.value.trim(), note: note.value.trim() }); editing = null; composer.reset(); composer.hidden = true; return; } try { const item = await requestJson(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: title.value.trim(), note: note.value.trim(), completed: false, userId: 1 }) }); todos = [{ ...item, note: note.value.trim(), local: true }, ...todos]; render(); composer.reset(); composer.hidden = true; setStatus(root, "Todo added for this session.", "success"); } catch (error) { setStatus(root, error.message, "error"); } });
+  async function load() { try { todos = (await requestJson(API + "?_limit=8")).map(item => ({ ...item, note: "" })); render(); setStatus(root, "Loaded. JSONPlaceholder write operations are simulated and not permanent."); } catch (error) { setStatus(root, error.message, "error"); } }
+  function render() { empty.hidden = todos.length > 0; empty.textContent = "No notes found."; list.replaceChildren(...todos.map(item => { const li = document.createElement("li"); li.className = "note-card" + (item.completed ? " is-complete" : ""); const text = document.createElement("div"); const titleNode = document.createElement("strong"); titleNode.textContent = item.title; const noteNode = document.createElement("p"); noteNode.textContent = item.note || "No note"; text.append(titleNode, noteNode); const actions = document.createElement("div"); actions.className = "button-row"; const complete = document.createElement("button"); complete.className = "btn btn-secondary"; complete.textContent = item.completed ? "Reopen" : "Complete"; complete.addEventListener("click", () => update(item, { completed: !item.completed })); const edit = document.createElement("button"); edit.className = "btn btn-secondary"; edit.textContent = "Edit"; edit.addEventListener("click", () => editTodo(item)); const remove = document.createElement("button"); remove.className = "btn btn-danger"; remove.textContent = "Delete"; remove.addEventListener("click", () => removeTodo(item)); actions.append(complete, edit, remove); li.append(text, actions); return li; })); }
+  async function update(item, changes) { try { const saved = await requestJson(API + "/" + item.id, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...item, ...changes }) }); Object.assign(item, changes, saved); render(); setStatus(root, "Todo updated for this session.", "success"); } catch (error) { setStatus(root, error.message, "error"); } }
+  function editTodo(item) { editing = item; title.value = item.title; note.value = item.note || ""; composer.hidden = false; title.focus(); }
+  async function removeTodo(item) { try { await requestJson(API + "/" + item.id, { method: "DELETE" }); todos = todos.filter(todo => todo !== item); render(); setStatus(root, "Todo deleted for this session.", "success"); } catch (error) { setStatus(root, error.message, "error"); } }
+  load();
 }

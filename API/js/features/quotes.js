@@ -1,38 +1,9 @@
-/**
- * Quotes feature.
- * Planned API: DummyJSON. Not connected.
- *
- * Future request flow:
- * 1. TODO: GET the verified random-quote endpoint when "New quote" is clicked.
- * 2. TODO: map the verified quote text into [data-quote].
- * 3. TODO: map the verified author into [data-author].
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+import { requestJson, setBusy, setStatus } from "../utils.js";
 
 export function initQuotes(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="quotes-title">Quotes</h2>
-      <p>Request a random quote.</p>
-    </header>
-
-    <div class="stage">
-      <article class="card quote-card">
-        <p class="eyebrow">Quote</p>
-        <blockquote data-quote>A quote will appear here.</blockquote>
-        <p class="attribution" data-author>Author</p>
-        <button class="btn" type="button" data-new-quote>New quote</button>
-      </article>
-    </div>
-
-    <p class="status" data-status role="status">No quote requested yet.</p>
-  `;
-
-  root.querySelector("[data-new-quote]").addEventListener("click", () => {
-    // TODO: send the random-quote request and map quote and author.
-    setStatus(root, "A new quote will load after DummyJSON is verified in Postman.");
-  });
+  root.innerHTML = `<header class="view-header"><h2 id="quotes-title">Quotes</h2><p>Find a little perspective from DummyJSON.</p></header><div class="stage"><article class="card quote-card"><p class="eyebrow">Quote</p><blockquote data-quote>Click below for a quote.</blockquote><p class="attribution" data-author></p><div class="button-row"><button class="btn" type="button" data-new-quote>New quote</button><button class="btn btn-secondary" type="button" data-copy>Copy</button></div></article></div><p class="status" data-status role="status">Ready.</p>`;
+  const quote = root.querySelector("[data-quote]"), author = root.querySelector("[data-author]"), load = root.querySelector("[data-new-quote]"); let current = "";
+  async function fetchQuote() { setBusy(load, true, "Loading…"); setStatus(root, "Requesting a quote…"); try { const data = await requestJson("https://dummyjson.com/quotes/random"); current = `“${data.quote}” — ${data.author}`; quote.textContent = `“${data.quote || "No quote returned."}”`; author.textContent = data.author ? `— ${data.author}` : ""; setStatus(root, "Quote loaded.", "success"); } catch (error) { setStatus(root, error.message, "error"); } finally { setBusy(load, false); } }
+  load.addEventListener("click", fetchQuote);
+  root.querySelector("[data-copy]").addEventListener("click", async () => { if (!current) return setStatus(root, "Load a quote before copying."); try { await navigator.clipboard.writeText(current); setStatus(root, "Quote copied.", "success"); } catch { setStatus(root, "Copy is unavailable in this browser.", "error"); } });
 }

@@ -5,9 +5,7 @@ import { initTodos } from "./js/features/todos.js";
 import { initMovies } from "./js/features/movies.js";
 import { initPokedex } from "./js/features/pokedex.js";
 import { initCurrency } from "./js/features/currency.js";
-
-// Shared networking will be imported from ./js/utils.js after
-// endpoints are verified in Postman. No requests are made in this phase.
+import { initBattle } from "./js/features/battle.js";
 
 const features = [
   { id: "weather", init: initWeather },
@@ -17,6 +15,7 @@ const features = [
   { id: "movies", init: initMovies },
   { id: "pokedex", init: initPokedex },
   { id: "currency", init: initCurrency },
+  { id: "battle", init: initBattle },
 ];
 
 const navButtons = document.querySelectorAll("[data-feature]");

@@ -1,65 +1,7 @@
-/**
- * Movies feature.
- * Planned API: TMDB. Not connected.
- *
- * Authentication is not implemented. TMDB's current docs describe an API key
- * or a read access token. Do not hardcode either value in this file.
- * A private token must not be shipped in browser JavaScript.
- *
- * Future request flow:
- * 1. TODO: when this view opens, GET popular movies into [data-results].
- * 2. TODO: GET search results for the text in [data-query].
- * 3. TODO: GET movie details for the selected id.
- *
- * UI targets, using only fields confirmed in Postman:
- * - poster image in [data-poster] (needs the documented image base URL)
- * - title, release date, overview, and TMDB rating on each result
- * - revenue from the details response, shown only when the field is present
- *
- * vote_average is a TMDB rating. Do not label it as IMDb.
- * Do not invent a poster, overview, rating, or revenue when the field is missing.
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
-
+import { requestJson, setStatus } from "../utils.js";
 export function initMovies(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="movies-title">Movies</h2>
-      <p>Popular movies and search results will appear here.</p>
-    </header>
-
-    <form class="toolbar" data-search-form>
-      <div class="field field-grow">
-        <label for="movie-query">Movie</label>
-        <input id="movie-query" name="query" type="search" data-query autocomplete="off" placeholder="Search by title">
-      </div>
-      <button class="btn" type="submit">Search</button>
-    </form>
-
-    <div class="results" data-results>
-      <p class="empty-state">No movies loaded. Popular titles will be requested after TMDB is verified.</p>
-    </div>
-
-    <p class="status" data-status role="status">TMDB is not connected. No credentials are stored in this page.</p>
-  `;
-
-  const form = root.querySelector("[data-search-form]");
-  const queryInput = root.querySelector("[data-query]");
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const query = queryInput.value.trim();
-
-    if (!query) {
-      setStatus(root, "Enter a movie title.");
-      return;
-    }
-
-    // TODO: send the search request, then render one card per verified result.
-    // Selecting a card will request movie details and map revenue when present.
-    setStatus(root, `Search for “${query}” will run after TMDB is verified in Postman.`);
-  });
+  root.innerHTML = '<header class="view-header"><h2 id="movies-title">Movies</h2><p>Search TMDB through the local secure proxy.</p></header><form class="toolbar" data-form><div class="field field-grow"><label for="movie-query">Movie</label><input id="movie-query" type="search" data-query placeholder="Search by title" required></div><button class="btn" type="submit">Search</button></form><div class="results" data-results><p class="empty-state">Search for a movie to begin.</p></div><p class="status" data-status role="status">The browser never receives the TMDB token.</p>';
+  root.querySelector("[data-form]").addEventListener("submit", async event => { event.preventDefault(); const query = root.querySelector("[data-query]").value.trim(); if (!query) return setStatus(root, "Enter a movie title.", "error"); setStatus(root, "Searching TMDB…"); try { const data = await requestJson("/api/tmdb/search/movie?query=" + encodeURIComponent(query)); renderResults(root, data.results || []); setStatus(root, (data.results || []).length ? "Search complete." : "No movies found.", "success"); } catch (error) { setStatus(root, error.message, "error"); } });
 }
+function renderResults(root, movies) { const node = root.querySelector("[data-results]"); node.replaceChildren(...movies.map(movie => { const card = document.createElement("article"); card.className = "card movie-card"; if (movie.poster_path) { const img = document.createElement("img"); img.src = "https://image.tmdb.org/t/p/w342" + movie.poster_path; img.alt = movie.title + " poster"; card.append(img); } const body = document.createElement("div"), title = document.createElement("h3"), meta = document.createElement("p"), overview = document.createElement("p"), details = document.createElement("button"); title.textContent = movie.title || "Untitled"; meta.textContent = "Release: " + (movie.release_date || "Unknown") + " · TMDB rating: " + (movie.vote_average ?? "—"); overview.textContent = movie.overview || "No overview available."; details.className = "btn btn-secondary"; details.textContent = "Details"; details.addEventListener("click", () => loadDetails(root, movie.id)); body.append(title, meta, overview, details); card.append(body); return card; })); }
+async function loadDetails(root, id) { try { const movie = await requestJson("/api/tmdb/movie/" + encodeURIComponent(id)); const status = root.querySelector("[data-status]"); status.textContent = (movie.title || "Movie") + " · " + (movie.runtime ? movie.runtime + " minutes" : "Runtime unavailable") + " · TMDB rating: " + (movie.vote_average ?? "—"); } catch (error) { setStatus(root, error.message, "error"); } }

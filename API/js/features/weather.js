@@ -1,80 +1,11 @@
-/**
- * Weather feature.
- * Planned API: Open-Meteo. Not connected.
- *
- * Future request flow, after Postman verification:
- * 1. Read the city from [data-city-input].
- * 2. TODO: GET the geocoding search endpoint with the city name.
- * 3. TODO: map the verified city, country, latitude, and longitude fields.
- * 4. TODO: GET the forecast endpoint with those coordinates.
- * 5. TODO: map the verified current-weather fields into the nodes below.
- *
- * UI targets for the future response:
- * - [data-place]        city and country
- * - [data-temperature]  current temperature
- *   Remove the is-placeholder class when a real reading is shown.
- * - [data-condition]    weather condition
- * - [data-humidity]     humidity
- * - [data-wind]         wind speed
- * - [data-apparent]     apparent temperature
- */
-
-function setStatus(root, message) {
-  root.querySelector("[data-status]").textContent = message;
-}
+import { requestJson, setBusy, setStatus } from "../utils.js";
+const conditions = { 0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Fog", 48: "Rime fog", 51: "Light drizzle", 61: "Rain", 71: "Snow", 80: "Rain showers", 95: "Thunderstorm" };
+const degree = value => `${Math.round(value)}°`;
 
 export function initWeather(root) {
-  root.innerHTML = `
-    <header class="view-header">
-      <h2 id="weather-title">Weather</h2>
-      <p>Search for a city to view its current weather.</p>
-    </header>
-
-    <form class="toolbar" data-search-form>
-      <div class="field field-grow">
-        <label for="weather-city">City</label>
-        <input id="weather-city" name="city" type="search" data-city-input autocomplete="off" placeholder="Enter a city name">
-      </div>
-      <button class="btn" type="submit">Search</button>
-    </form>
-
-    <article class="card weather-card">
-      <p class="eyebrow">Current conditions</p>
-      <h3 data-place>No city selected</h3>
-      <p class="weather-temperature is-placeholder" data-temperature>No reading yet</p>
-      <p data-condition>Weather details will appear after a search.</p>
-      <dl class="stat-grid">
-        <div>
-          <dt>Humidity</dt>
-          <dd data-humidity>—</dd>
-        </div>
-        <div>
-          <dt>Wind</dt>
-          <dd data-wind>—</dd>
-        </div>
-        <div>
-          <dt>Feels like</dt>
-          <dd data-apparent>—</dd>
-        </div>
-      </dl>
-    </article>
-
-    <p class="status" data-status role="status">Waiting for a city search.</p>
-  `;
-
-  const form = root.querySelector("[data-search-form]");
-  const cityInput = root.querySelector("[data-city-input]");
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const city = cityInput.value.trim();
-
-    if (!city) {
-      setStatus(root, "Enter a city name.");
-      return;
-    }
-
-    // TODO: call geocoding, then the forecast request, then fill the card.
-    setStatus(root, `Search for “${city}” will run after Open-Meteo is verified in Postman.`);
-  });
+  root.innerHTML = `<header class="view-header"><h2 id="weather-title">Weather</h2><p>Search a city and view its local forecast.</p></header><form class="toolbar" data-search-form><div class="field field-grow"><label for="weather-city">City</label><input id="weather-city" name="city" type="search" data-city-input placeholder="Enter a city name" required></div><button class="btn" type="submit">Search</button></form><div class="choice-list" data-choices hidden></div><article class="card weather-card"><p class="eyebrow">Current conditions</p><h3 data-place>No city selected</h3><p class="weather-temperature is-placeholder" data-temperature>—</p><p data-condition>Search for a city to begin.</p><dl class="stat-grid"><div><dt>Humidity</dt><dd data-humidity>—</dd></div><div><dt>Wind</dt><dd data-wind>—</dd></div><div><dt>Feels like</dt><dd data-apparent>—</dd></div><div><dt>Cloud cover</dt><dd data-cloud>—</dd></div></dl><div class="hourly-grid" data-hourly></div></article><p class="status" data-status role="status">Ready.</p>`;
+  const form = root.querySelector("[data-search-form]"), input = root.querySelector("[data-city-input]"), choices = root.querySelector("[data-choices]"), search = form.querySelector("button");
+  form.addEventListener("submit", async event => { event.preventDefault(); const name = input.value.trim(); if (!name) return setStatus(root, "Enter a city name.", "error"); setBusy(search, true, "Searching…"); setStatus(root, "Finding matching cities…"); choices.hidden = true; try { const result = await requestJson(`https://geocoding-api.open-meteo.com/v1/search?${new URLSearchParams({ name, count: "8", language: "en", format: "json" })}`); const matches = result.results || []; if (!matches.length) throw new Error("No matching cities found."); choices.replaceChildren(...matches.map(place => { const button = document.createElement("button"); button.className = "choice-button"; button.type = "button"; button.textContent = `${place.name}, ${place.country || place.country_code || ""}`; button.addEventListener("click", () => loadForecast(place)); return button; })); choices.hidden = false; setStatus(root, "Select the correct city."); } catch (error) { setStatus(root, error.message, "error"); } finally { setBusy(search, false); } });
+  async function loadForecast(place) { choices.hidden = true; setStatus(root, "Loading forecast…"); try { const params = new URLSearchParams({ latitude: place.latitude, longitude: place.longitude, current: "temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation,cloud_cover", hourly: "temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,weather_code", forecast_days: "2", timezone: "auto" }); const data = await requestJson(`https://api.open-meteo.com/v1/forecast?${params}`), current = data.current; root.querySelector("[data-place]").textContent = `${place.name}, ${place.country || place.country_code || ""}`; root.querySelector("[data-temperature]").textContent = degree(current.temperature_2m); root.querySelector("[data-temperature]").classList.remove("is-placeholder"); root.querySelector("[data-condition]").textContent = conditions[current.weather_code] || "Weather conditions"; root.querySelector("[data-humidity]").textContent = `${current.relative_humidity_2m}%`; root.querySelector("[data-wind]").textContent = `${current.wind_speed_10m} km/h`; root.querySelector("[data-apparent]").textContent = degree(current.apparent_temperature); root.querySelector("[data-cloud]").textContent = `${current.cloud_cover}%`; renderHourly(root.querySelector("[data-hourly]"), data.hourly); setStatus(root, `Updated for ${data.timezone}.`, "success"); } catch (error) { setStatus(root, error.message, "error"); } }
 }
+function renderHourly(node, hourly) { node.replaceChildren(); if (!hourly?.time?.length) return; hourly.time.slice(0, 8).forEach((time, index) => { const item = document.createElement("div"); item.className = "hour-card"; item.textContent = `${new Date(time).toLocaleTimeString([], { hour: "numeric" })} ${Math.round(hourly.temperature_2m[index])}°`; node.append(item); }); }

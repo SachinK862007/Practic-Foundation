@@ -183,3 +183,16 @@ For each tested request, record:
 - [ ] No real secrets included in exported files.
 - [ ] Collection exported.
 - [ ] Collection export checked before commit.
+# Verification record
+
+The application now uses the following live endpoints:
+
+- Open-Meteo geocoding and forecast: city selection, current weather, hourly data, and timezone=auto.
+- DummyJSON quotes: random quote retrieval.
+- JokeAPI: safe-mode single and two-part response handling.
+- JSONPlaceholder: GET, POST, PUT, and DELETE; writes are simulated.
+- PokéAPI: name/ID lookup and artwork/stat mapping.
+- Frankfurter v1: currencies and latest conversion rates.
+- TMDB: tested through the local FastAPI proxy when TMDB_READ_ACCESS_TOKEN is configured.
+
+JavaScript and Python syntax checks were run locally. Browser interaction and external API availability should be rechecked in the running browser because network access and provider rate limits can vary.

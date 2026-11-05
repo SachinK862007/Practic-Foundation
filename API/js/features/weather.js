@@ -17,7 +17,7 @@
  * - [data-humidity]     humidity
  * - [data-wind]         wind speed
  * - [data-apparent]     apparent temperature
- *
+ */
 
 function setStatus(root, message) {
   root.querySelector("[data-status]").textContent = message;

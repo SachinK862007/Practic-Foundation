@@ -141,6 +141,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .field { display: flex; flex-direction: column; gap: 0.35rem; }
 
 .field-grow { flex: 1; }
+.weather-search-field, .movie-search-field { position: relative; }
+.weather-suggestions, .movie-suggestions { position: absolute; z-index: 10; left: 0; right: 0; top: calc(100% + 0.35rem); max-height: 18rem; overflow-y: auto; margin: 0; padding: 0.35rem; background: var(--card); border: 1px solid var(--line); border-radius: 0.75rem; box-shadow: var(--shadow); }
 
 .field label, .result-label { font-size: 0.85rem; font-weight: 650; }
 
@@ -317,6 +319,8 @@ textarea:focus-visible {
 }
 
 .pokedex-screen img { display: block; width: min(100%, 16rem); height: min(42vw, 16rem); max-height: 16rem; object-fit: contain; }
+.weather-card.weather-reveal { animation: weather-reveal 0.65s ease both; }
+@keyframes weather-reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 .artwork-placeholder {
   width: 8rem;
@@ -385,6 +389,7 @@ select:disabled { color: var(--ink-soft); cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) {
   .btn, .nav-button { transition: none; }
   .btn:hover, .nav-button:hover { transform: none; }
+  .weather-card.weather-reveal { animation: none; }
 }
 
 .choice-list { display: grid; gap: .5rem; margin: 1rem 0; }
@@ -394,6 +399,15 @@ select:disabled { color: var(--ink-soft); cursor: not-allowed; }
 .hour-card { padding: .65rem; border-radius: .6rem; background: var(--surface-muted, #f3f5f9); font-size: .85rem; text-align: center; }
 .movie-card { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; margin-bottom: .75rem; }
 .movie-card img { width: 110px; height: 165px; object-fit: cover; border-radius: .5rem; }
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+.movie-poster-card { position: relative; display: flex; flex-direction: column; min-height: 250px; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 0.75rem; background: var(--card); cursor: pointer; text-align: left; transition: transform var(--motion), box-shadow var(--motion); }
+.movie-poster-card:hover, .movie-poster-card:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow); }
+.movie-poster-card img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background: #dfe5eb; }
+.movie-poster-card > span:first-child:not(.movie-poster-caption) { display: grid; place-items: center; min-height: 220px; color: var(--ink-soft); }
+.movie-poster-caption { padding: 0.75rem; font-weight: 650; }
+.movie-details { margin-bottom: 0.5rem; }
+.inline-message { margin: 0; color: #b42318; }
+.load-sentinel { padding: 1rem; color: var(--ink-soft); text-align: center; }
 .battle-arena { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin: 1.5rem 0; }
 .battle-card { min-height: 220px; padding: 1rem; border: 2px solid var(--border, #d8dee9); border-radius: 1rem; text-align: center; background: var(--surface, #fff); }
 .battle-card img { width: 150px; height: 150px; object-fit: contain; }
@@ -415,4 +429,5 @@ select:disabled { color: var(--ink-soft); cursor: not-allowed; }
   .battle-middle { order: -1; }
   .movie-card { grid-template-columns: 80px 1fr; }
   .movie-card img { width: 80px; height: 120px; }
+  .movie-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
 }

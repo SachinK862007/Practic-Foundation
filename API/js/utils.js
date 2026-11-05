@@ -13,7 +13,7 @@ export async function requestJson(url, options = {}) {
     const contentType = response.headers.get("content-type") || "";
     const body = response.status === 204 ? null : contentType.includes("application/json") ? await response.json() : await response.text();
     if (!response.ok) {
-      const detail = body && typeof body === "object" ? body.message || body.status_message : body;
+      const detail = body && typeof body === "object" ? body.message || body.status_message || body.detail : body;
       throw new ApiError(detail || `Request failed with HTTP ${response.status}.`, response.status);
     }
     return body;

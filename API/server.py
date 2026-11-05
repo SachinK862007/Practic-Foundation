@@ -27,19 +27,31 @@ def token() -> str:
     value = os.getenv("TMDB_READ_ACCESS_TOKEN", "").strip()
     if not value:
         raise HTTPException(503, "TMDB is not configured. Add TMDB_READ_ACCESS_TOKEN to .env.")
+    if not value.startswith("eyJ"):
+        raise HTTPException(503, "TMDB_READ_ACCESS_TOKEN must be the long API Read Access Token, not the shorter API key.")
     return value
 
 async def tmdb_get(path: str, params: dict[str, Any] | None = None) -> Any:
+    load_dotenv()
     headers = {"Authorization": "Bearer " + token(), "accept": "application/json"}
-    async with httpx.AsyncClient(base_url="https://api.themoviedb.org/3", timeout=10) as client:
-        response = await client.get(path, params=params, headers=headers)
+    try:
+        async with httpx.AsyncClient(base_url="https://api.themoviedb.org/3", timeout=10) as client:
+            response = await client.get(path, params=params, headers=headers)
+    except httpx.RequestError as error:
+        raise HTTPException(503, "TMDB could not be reached. Check your internet connection.") from error
+    if response.status_code in (401, 403):
+        raise HTTPException(503, "TMDB rejected the token. Use a TMDB API Read Access Token in .env, not an API key.")
     if response.status_code >= 400:
-        raise HTTPException(response.status_code, "TMDB request failed.")
+        raise HTTPException(503, "TMDB returned an error while loading movies.")
     return response.json()
 
 @app.get("/api/tmdb/search/movie")
-async def movie_search(query: str = Query(min_length=1, max_length=100)):
-    return await tmdb_get("/search/movie", {"query": query, "include_adult": "false", "language": "en-US", "page": 1})
+async def movie_search(query: str = Query(min_length=1, max_length=100), page: int = Query(1, ge=1, le=500)):
+    return await tmdb_get("/search/movie", {"query": query, "include_adult": "false", "language": "en-US", "page": page})
+
+@app.get("/api/tmdb/movie/popular")
+async def popular_movies(page: int = Query(1, ge=1, le=500)):
+    return await tmdb_get("/movie/popular", {"language": "en-US", "page": page})
 
 @app.get("/api/tmdb/movie/{movie_id}")
 async def movie_details(movie_id: int):

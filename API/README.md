@@ -11,16 +11,16 @@ The application provides seven tools through a shared sidebar interface.
 
 ## Features
 
-| Feature  | API             | Planned functionality                                  |
-|----------|-----------------|--------------------------------------------------------|
-| Weather  | Open-Meteo      | Search cities and view weather information             |
-| Quotes   | DummyJSON       | Generate random quotes                                 |
-| Jokes    | JokeAPI         | Generate random jokes                                  |
-| To-dos   | JSONPlaceholder | Practise todo CRUD operations                          |
-| Movies   | TMDB            | Search movies and view their details                   |
-| Pokédex  | PokéAPI         | Search Pokémon and view their abilities and statistics |
-| Currency | Frankfurter     | Convert between supported currencies                   |
-| Pokémon Battle | PokéAPI     | Compare real base statistics over five rounds           |
+| Feature        | API             | Planned functionality                                  |
+|----------------|-----------------|--------------------------------------------------------|
+| Weather        | Open-Meteo      | Search cities and view weather information             |
+| Quotes         | DummyJSON       | Generate random quotes                                 |
+| Jokes          | JokeAPI         | Generate random jokes                                  |
+| To-dos         | JSONPlaceholder | Practise todo CRUD operations                          |
+| Movies         | TMDB            | Search movies and view their details                   |
+| Pokédex        | PokéAPI         | Search Pokémon and view their abilities and statistics |
+| Currency       | Frankfurter     | Convert between supported currencies                   |
+| Pokémon Battle | PokéAPI         | Compare real base statistics over five rounds          |
 
 ## Technology Stack
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Hub</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <p class="brand-mark" aria-hidden="true">SK</p>
+          <div>
+            <p class="brand-title">API Hub</p>
+          <p class="brand-subtitle">Eight practice tools</p>
+          </div>
+        </div>
+
+        <nav class="feature-nav" aria-label="Features">
+          <ul class="feature-nav-list">
+            <li>
+              <button type="button" class="nav-button is-active" data-feature="weather" aria-current="page">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a5 5 0 0 0-5 5c0 3.5 5 9 5 9s5-5.5 5-9a5 5 0 0 0-5-5zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>
+                <span>Weather</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="quotes">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H9c0 2 1 3 3 3v2c-3.5 0-6-2.2-6-6V7zm8 0h4v4h-2c0 2 1 3 3 3v2c-3.5 0-6-2.2-6-6V7z"/></svg>
+                <span>Quotes</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="jokes">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a8 8 0 0 0-8 8c0 2.2.9 4.2 2.3 5.6V20l3.2-1.6c.8.3 1.6.4 2.5.4a8 8 0 0 0 0-16zm-3 8.2a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zm6 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4z"/></svg>
+                <span>Jokes</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="todos">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a2 2 0 0 1 2 2v14l-4-2-3 2-3-2-4 2V6a2 2 0 0 1 2-2zm2 5h6v2H9V9zm0 4h6v2H9v-2z"/></svg>
+                <span>To-dos</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="movies">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4V6zm2 2v8h12V8H6zm2.5 1.5 5 2.5-5 2.5v-5z"/></svg>
+                <span>Movies</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="pokedex">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-8 9h6.1a2 2 0 0 1 3.8 0H20a8 8 0 0 0-16 0zm8 2a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+                <span>Pokédex</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="currency">
+                <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h8a4 4 0 0 1 0 8H9l6 4H9a4 4 0 0 1 0-8h6L9 6z"/></svg>
+                <span>Currency</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="nav-button" data-feature="battle">
+                <span class="nav-icon" aria-hidden="true">⚔</span>
+                <span>Pokémon Battle</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="workspace" id="workspace">
+        <section class="view" id="weather-view" data-view="weather" aria-labelledby="weather-title"></section>
+        <section class="view" id="quotes-view" data-view="quotes" aria-labelledby="quotes-title" hidden></section>
+        <section class="view" id="jokes-view" data-view="jokes" aria-labelledby="jokes-title" hidden></section>
+        <section class="view" id="todos-view" data-view="todos" aria-labelledby="todos-title" hidden></section>
+        <section class="view" id="movies-view" data-view="movies" aria-labelledby="movies-title" hidden></section>
+        <section class="view" id="pokedex-view" data-view="pokedex" aria-labelledby="pokedex-title" hidden></section>
+        <section class="view" id="currency-view" data-view="currency" aria-labelledby="currency-title" hidden></section>
+        <section class="view" id="battle-view" data-view="battle" aria-labelledby="battle-title" hidden></section>
+      </main>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

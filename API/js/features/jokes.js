@@ -1,0 +1,7 @@
+import { requestJson, setBusy, setStatus } from "../utils.js";
+
+export function initJokes(root) {
+  root.innerHTML = `<header class="view-header"><h2 id="jokes-title">Jokes</h2><p>Safe-mode jokes from JokeAPI.</p></header><div class="stage"><article class="card joke-card"><p class="eyebrow">Joke</p><p class="joke-text" data-joke>Click below for a joke.</p><div data-twopart hidden><p class="joke-text" data-setup></p><p class="joke-delivery" data-delivery></p></div><button class="btn" type="button" data-new-joke>New joke</button></article></div>`;
+  const button = root.querySelector("[data-new-joke]");
+  button.addEventListener("click", async () => { setBusy(button, true, "Loading…"); setStatus(root, "Requesting a safe joke…"); try { const data = await requestJson("https://v2.jokeapi.dev/joke/Any?safe-mode"); if (data.error) throw new Error(data.message || "JokeAPI returned an error."); const single = root.querySelector("[data-joke]"), two = root.querySelector("[data-twopart]"); if (data.type === "twopart") { single.hidden = true; two.hidden = false; root.querySelector("[data-setup]").textContent = data.setup || ""; root.querySelector("[data-delivery]").textContent = data.delivery || ""; } else { single.hidden = false; two.hidden = true; single.textContent = data.joke || "No joke returned."; } setStatus(root, "Joke loaded.", "success"); } catch (error) { setStatus(root, error.message, "error"); } finally { setBusy(button, false); } });
+}

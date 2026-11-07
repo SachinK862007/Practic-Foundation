@@ -1,0 +1,89 @@
+---
+description: "JavaScript standards for the root application entry point and supporting JavaScript modules."
+globs: "main.js, js/**/*.js"
+alwaysApply: false
+---
+
+
+# JavaScript Development Rules
+
+## Language
+
+Use modern vanilla JavaScript.
+
+Use JavaScript ES Modules with explicit imports and exports.
+
+Do not introduce frontend frameworks.
+
+## Variables
+
+- Use const by default.
+- Use let when reassignment is necessary.
+- Avoid var.
+- Use descriptive variable names.
+- Avoid unnecessary global variables.
+
+## Functions
+
+- Keep functions focused on one responsibility.
+- Prefer clear function names.
+- Avoid unnecessarily large functions.
+- Avoid deeply nested conditionals.
+- Use early returns where they improve readability.
+
+## Asynchronous Programming
+
+Use async/await for asynchronous API operations where appropriate.
+
+Handle rejected promises.
+
+Do not silently ignore errors.
+
+Do not assume requests always succeed.
+
+## DOM Handling
+
+- Keep DOM updates separate from API request logic.
+- Use clear selectors.
+- Avoid repeatedly querying the same elements unnecessarily.
+- Prefer textContent for displaying plain text from external APIs.
+- Avoid unsafe innerHTML usage with untrusted data.
+
+## Data Handling
+
+- Check that required response properties exist.
+- Handle null and undefined values.
+- Do not assume arrays are always non-empty.
+- Do not mutate shared data unnecessarily.
+- Use appropriate data structures.
+
+## Error Handling
+
+Handle:
+
+- HTTP errors.
+- Network failures.
+- Invalid input.
+- Missing response properties.
+- Invalid JSON where applicable.
+
+Provide understandable error messages.
+
+## Code Quality
+
+- Avoid duplicated logic.
+- Reuse shared utilities.
+- Avoid unnecessary dependencies.
+- Add comments for non-obvious logic.
+- Do not add comments that merely repeat the code.
+
+## Learning Requirement
+
+For complex generated code, explain:
+
+1. What the code does.
+2. Why the approach was selected.
+3. Which JavaScript concepts are involved.
+4. What possible failure cases exist.
+
+Do not generate unnecessary code just to increase complexity.

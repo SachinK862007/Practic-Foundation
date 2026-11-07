@@ -1,0 +1,143 @@
+---
+description: "Core instructions for the API Hub project, architecture, workflow, and engineering standards."
+alwaysApply: true
+---
+
+# API Hub — Project Rules
+
+## Project Identity
+
+API Hub is a multi-tool web application built using:
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- JavaScript ES Modules
+- REST APIs
+- Fetch API
+
+The application must not use React, Vue, Angular, or other frontend frameworks.
+
+## Root File Structure
+
+The following files must remain at the project root:
+
+- index.html
+- style.css
+- main.js
+
+Supporting JavaScript modules belong inside:
+
+- js/utils.js
+- js/features/
+
+Documentation belongs inside:
+
+- docs/
+
+Postman resources belong inside:
+
+- postman/
+
+Project rules belong inside:
+
+- .cursor/rules/
+
+Do not move or rename the root application files unless explicitly requested by the developer.
+
+## Application Features
+
+The sidebar must contain these features in this exact order:
+
+1. Weather
+2. Quotes
+3. Jokes
+4. To-dos
+5. Movies
+6. Pokédex
+7. Currency
+
+## Development Workflow
+
+Follow this process:
+
+1. Understand the requested task.
+2. Inspect relevant project files.
+3. Read the related project documentation.
+4. Research external APIs when required.
+5. Explain the proposed approach.
+6. Implement only the approved scope.
+7. Verify the implementation.
+8. Explain the changes.
+9. Update relevant documentation.
+10. Recommend an appropriate Git commit.
+
+## Engineering Standards
+
+- Prefer simple and maintainable solutions.
+- Keep features modular.
+- Avoid unnecessary abstractions.
+- Avoid unnecessary dependencies.
+- Reuse shared utilities.
+- Use meaningful file, function, and variable names.
+- Handle errors explicitly.
+- Do not introduce unrelated changes.
+- Do not duplicate existing functionality.
+- Do not invent API response properties.
+- Do not silently change architectural decisions.
+
+## AI-Assisted Development
+
+The developer is learning software engineering while using Cursor.
+
+For complex tasks:
+
+- Explain the implementation plan before editing.
+- Identify which files will be changed.
+- Explain important technical decisions.
+- Keep changes limited to the requested scope.
+- Do not claim testing was completed unless it was actually performed.
+- Explain generated code so the developer can understand it.
+- Identify assumptions and limitations.
+
+When the developer asks for planning, research, or review only, do not modify application files.
+
+Wait for an implementation request before making code changes.
+
+## Documentation
+
+Update the relevant documentation when a feature, API, architecture decision, or project workflow changes.
+
+Keep the following files accurate:
+
+- README.md
+- docs/PROJECT_PLAN.md
+- docs/REQUIREMENTS.md
+- docs/ARCHITECTURE.md
+- docs/API_DOCUMENTATION.md
+- docs/API_TESTING.md
+- docs/TASKS.md
+- docs/DECISIONS.md
+- CHANGELOG.md
+
+Do not mark tasks completed without verification.
+
+## Security
+
+- Never commit .env.
+- Never expose private credentials in frontend code.
+- Never place access tokens in public source files.
+- Treat external API responses as untrusted data.
+- Do not claim that Base64 encoding or frontend environment variables provide secret protection.
+
+## Communication
+
+Before making significant changes, explain:
+
+1. What needs to change.
+2. Why it needs to change.
+3. Which files will be affected.
+4. How the change will be verified.
+
+Prefer clear explanations over unexplained code generation.
+

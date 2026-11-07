@@ -1,0 +1,90 @@
+---
+description: "Rules for researching, testing, implementing, and maintaining external REST API integrations."
+globs: "js/**/*.js"
+alwaysApply: false
+---
+
+
+
+# API Integration Rules
+
+## Before Implementation
+
+Before integrating an API:
+
+1. Identify the official documentation.
+2. Identify the required endpoint.
+3. Verify the HTTP method.
+4. Inspect query parameters.
+5. Inspect required headers.
+6. Identify authentication requirements.
+7. Test the request in Postman.
+8. Inspect the actual JSON response.
+9. Record the response properties required by the feature.
+
+Do not invent endpoint behaviour or response structures.
+
+## Request Construction
+
+Use the Fetch API.
+
+Build URLs carefully.
+
+Use URL and URLSearchParams where appropriate for query parameters.
+
+Do not concatenate unvalidated user input into unsafe URLs.
+
+Use the correct HTTP method.
+
+Set the appropriate headers.
+
+Send request bodies in the format expected by the API.
+
+## Response Handling
+
+Check response.ok before treating an HTTP request as successful.
+
+Parse JSON responses correctly.
+
+Validate the data required by the feature.
+
+Do not assume every successful response contains all expected properties.
+
+Handle empty results.
+
+Handle API-specific error structures where documented.
+
+## Shared Utility
+
+Use js/utils.js for reusable request functionality.
+
+Avoid repeating the same fetch and HTTP error-handling logic in every feature.
+
+Feature modules remain responsible for understanding and processing their API-specific data.
+
+## Authentication and Security
+
+- Never hardcode private credentials.
+- Never commit secrets.
+- Never expose private tokens in browser JavaScript.
+- Do not place private credentials in Postman collection exports.
+- Do not assume a frontend .env file is private.
+- Follow the relevant API provider's authentication requirements.
+
+## Rate Limits and Reliability
+
+Respect documented rate limits.
+
+Avoid unnecessary repeated requests.
+
+Use request cancellation when appropriate.
+
+Handle timeouts and network failures.
+
+## Documentation
+
+After verifying an endpoint, update docs/API_DOCUMENTATION.md.
+
+Record test results in docs/API_TESTING.md.
+
+Do not mark an endpoint as verified unless a real request has been tested.

@@ -1,0 +1,95 @@
+---
+description: "Testing and verification standards for API requests, feature behaviour, and browser implementation."
+globs: "main.js, js/**/*.js, index.html, postman/**"
+alwaysApply: false
+---
+
+
+# Testing Rules
+
+## API Testing
+
+Every external API must be tested independently before application integration.
+
+Use Postman to verify:
+
+- Endpoint.
+- HTTP method.
+- Parameters.
+- Headers.
+- Authentication.
+- Request body.
+- Response status.
+- Response structure.
+- Error behaviour.
+
+## Test Assertions
+
+Use Postman test assertions where appropriate.
+
+Examples:
+
+- Expected HTTP status.
+- Required response property.
+- Expected response data type.
+- Required collection structure.
+
+Do not use assertions that assume an unverified response structure.
+
+## Browser Testing
+
+After feature implementation, verify:
+
+- The feature can be opened.
+- The user can provide input.
+- The API request is sent correctly.
+- The result is displayed.
+- The loading state appears.
+- Errors are handled.
+- Empty results are handled.
+- No obvious console errors occur.
+
+## Failure Cases
+
+Test:
+
+- Empty input.
+- Invalid input.
+- Missing search results.
+- Network failure.
+- HTTP error responses.
+- Slow requests.
+- Repeated requests.
+
+## Todo Testing
+
+Verify:
+
+- GET.
+- POST.
+- PUT.
+- DELETE.
+
+Understand the difference between a simulated API response and persistent server-side storage.
+
+## Reporting
+
+Clearly distinguish:
+
+- Tested successfully.
+- Tested with errors.
+- Not yet tested.
+- Unable to test because of an external limitation.
+
+Never claim a test passed without executing it.
+
+## Final Verification
+
+Before marking a feature complete:
+
+1. Verify its requirements.
+2. Inspect the relevant code.
+3. Run the relevant tests.
+4. Perform manual browser testing.
+5. Record the results.
+6. Update docs/TASKS.md.

@@ -1,3 +1,7 @@
-import fastapi
+from fastapi import FastAPI
 
-print(fastapi.__version__)
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Welcome Master SK"}
